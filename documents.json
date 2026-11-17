@@ -1,11 +1,60 @@
 [
   {
-    "name": "example",
-    "title": "TODO(author): the first document this industry must produce",
-    "for_each": "select gen_random_uuid() as id, 'Example' as name",
-    "file": "name",
+    "name": "delivery-review",
+    "title": "Service delivery review",
+    "for_each": "SELECT id,code FROM services ORDER BY code",
+    "file": "code",
     "sections": [
-      { "title": "Details", "sql": "select 'replace me' as item, $1::text as record_id" }
+      {
+        "title": "Service owner and policy",
+        "layout": "record",
+        "sql": "SELECT code,name,owner,purpose,notice_ref,retention_review_on,access_review_on FROM services WHERE id=$1"
+      },
+      {
+        "title": "Changes",
+        "sql": "SELECT code,title,category,opened_at,merged_at,revision FROM changes WHERE service_id=$1 ORDER BY opened_at"
+      },
+      {
+        "title": "Production releases",
+        "sql": "SELECT code,version,deployed_at,failed_at,recovered_at,is_rework FROM deployments WHERE service_id=$1 AND environment='production' ORDER BY deployed_at"
+      },
+      {
+        "title": "Follow-up actions",
+        "sql": "SELECT code,title,owner,due_on,state,evidence FROM actions WHERE service_id=$1 ORDER BY due_on"
+      }
+    ]
+  },
+  {
+    "name": "recovery-record",
+    "title": "Failed release recovery record",
+    "for_each": "SELECT id,code FROM deployments WHERE failed_at IS NOT NULL ORDER BY code",
+    "file": "code",
+    "sections": [
+      {
+        "title": "Failure and recovery evidence",
+        "layout": "record",
+        "sql": "SELECT code,version,environment,deployed_at,failed_at,recovered_at,reason,evidence FROM deployments WHERE id=$1"
+      },
+      {
+        "title": "Included changes",
+        "sql": "SELECT c.code,c.title,c.author,c.merged_at FROM changes c JOIN deployment_changes dc ON dc.change_id=c.id WHERE dc.deployment_id=$1 ORDER BY c.code"
+      }
+    ]
+  },
+  {
+    "name": "improvement-register",
+    "title": "Delivery improvement register",
+    "for_each": "SELECT id,code FROM services ORDER BY code",
+    "file": "code",
+    "sections": [
+      {
+        "title": "Actions and completion evidence",
+        "sql": "SELECT code,title,owner,due_on,state,evidence FROM actions WHERE service_id=$1 ORDER BY due_on"
+      },
+      {
+        "title": "Review notes",
+        "sql": "SELECT body,created_at FROM notes WHERE service_id=$1 ORDER BY created_at"
+      }
     ]
   }
 ]

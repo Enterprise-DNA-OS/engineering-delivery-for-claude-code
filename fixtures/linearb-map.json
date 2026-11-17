@@ -1,0 +1,20 @@
+{
+  "range": "Date Range",
+  "metrics": {
+    "Cycle Time": {
+      "metric": "cycle_time",
+      "unit": "hours",
+      "aggregation": "average"
+    },
+    "Merged PRs": {
+      "metric": "merged_prs",
+      "unit": "count",
+      "aggregation": "total"
+    },
+    "Failure Rate": {
+      "metric": "failure_rate",
+      "unit": "percent",
+      "aggregation": "ratio"
+    }
+  }
+}

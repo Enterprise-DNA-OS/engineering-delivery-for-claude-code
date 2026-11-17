@@ -1,115 +1,97 @@
-<h1 align="center">Engineering Delivery for Claude Code</h1>
+# Engineering Delivery for Claude Code
 
-<p align="center">
-  <strong>The open-source engineering delivery system that is just a database and Claude Code.</strong>
-</p>
+See what is waiting for review, what has merged but has not reached production, and which failed release still needs recovery evidence. Keep the records and the definitions in a database you own.
 
-<p align="center">
-  Created by <a href="https://www.enterprisedna.co"><strong>Enterprise DNA</strong></a>. Free and open source. Works with Claude Code, Codex, OpenCode or Cursor.
-</p>
+| Do it yourself | We customise it | We run it for you |
+|---|---|---|
+| Free under MIT. Install and explore the fictional demo. | Your delivery rules, LinearB summaries, source connections and reports. One setup fee, then a retainer. | Installed and operated through Omni by Enterprise DNA. One setup fee, then a retainer. |
 
-<!-- three-doors -->
-<table align="center">
-  <tr>
-    <td align="center"><strong>Do it yourself</strong><br/>Clone it, run it, own it. Free, MIT.<br/><a href="#quick-start">Quick start</a></td>
-    <td align="center"><strong>We customise it</strong><br/>Your fields, your rules, your LinearB data brought across.<br/><a href="https://enterprisedna.co/omni/book/?utm_source=github&utm_medium=readme&utm_campaign=linearb">Book a call</a></td>
-    <td align="center"><strong>We run it for you</strong><br/>Installed, connected and operated inside Omni. Setup fee, then a retainer.<br/><a href="https://enterprisedna.co/omni/instead-of/linearb?utm_source=github&utm_medium=readme&utm_campaign=linearb">How it works</a></td>
-  </tr>
-</table>
+[Get your version built](https://enterprisedna.co/omni/book/?offer=replace-software&utm_source=github&utm_medium=readme&utm_campaign=linearb) · [Instead of LinearB](https://enterprisedna.co/omni/instead-of/linearb)
 
-<p align="center">
-  <a href="#what-is-this">What is this</a> &bull;
-  <a href="#why-no-front-end">Why no front end</a> &bull;
-  <a href="#quick-start">Quick start</a> &bull;
-  <a href="#the-commands">Commands</a> &bull;
-  <a href="#instead-of-linearb">Instead of LinearB</a> &bull;
-  <a href="#want-it-installed-and-run-for-you">Installed for you</a> &bull;
-  <a href="#license">License</a>
-</p>
+## Try it
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Node-20+-339933?style=flat-square" alt="Node 20+" />
-  <img src="https://img.shields.io/badge/PostgreSQL-any-336791?style=flat-square" alt="PostgreSQL" />
-  <img src="https://img.shields.io/badge/PGlite-embedded-3ecf8e?style=flat-square" alt="PGlite" />
-  <img src="https://img.shields.io/badge/License-MIT-yellow?style=flat-square" alt="MIT License" />
-</p>
-
----
-
-## What is this
-
-Engineering Delivery for Claude Code does the job you pay LinearB for, as a Postgres database and a set of agent commands. There is no web front end. You open the folder in [Claude Code](https://claude.com/claude-code) (or Codex, OpenCode, Cursor: see `AGENTS.md`) and ask for what you want in plain language. It runs the right query, and it can answer questions the LinearB dashboard cannot.
-
-<!-- TODO(author): the annual bill. One sentence: what a 10 to 50 person business typically pays LinearB per year, all in, with a source. -->
-
-Want the same thing with a web front end, or built on a different stack? That is a customisation, and it is exactly what Enterprise DNA does: [book a call](https://enterprisedna.co/omni/book/?utm_source=github&utm_medium=readme&utm_campaign=linearb).
-
-<!-- TODO(author): two or three sentences on what this specific product covers and who it is for. -->
-
-## Why no front end
-
-- The front end was only ever there because the database was hard to talk to. That is no longer true.
-- Your data sits in plain Postgres tables you own. Any tool can read them. No export, no lock-in.
-- No seats, no tiers, no add-ons. Read [docs/why-no-front-end.md](docs/why-no-front-end.md) for the honest trade-offs too.
-
-## Quick start
-
-Sixty seconds, no database install (an embedded Postgres runs inside Node):
+Node 20 or later:
 
 ```bash
-git clone https://github.com/Enterprise-DNA-OS/engineering-delivery-for-claude-code.git
-cd engineering-delivery-for-claude-code
 npm install
 npm run demo
+npm run delivery -- dora
+npm run view
+npm run docs
 ```
 
-Then open the folder in Claude Code and type a slash command. <!-- TODO(author): name the first command to try. -->
+Open the folder in Claude Code, Codex, OpenCode or Cursor. AGENTS.md points to the same CLAUDE.md and slash-command recipes. PGlite stores an embedded database in .data/db. DATABASE_URL selects PostgreSQL, and DATA_DIR selects a local data directory. Never seed a production database. Shared-database demo seeding requires --demo-database.
 
-### Use it with your own Postgres or Supabase
+LinearB lists Essentials at US$29 per user per month billed annually for teams with 50 or more developers. At 50 users that is US$17,400 a year in subscription arithmetic, not a customer invoice. [Pricing](https://linearb.io/pricing), checked 17 November 2026. [Candidate scores and limits](docs/research.md).
 
-Copy `.env.example` to `.env`, set `DATABASE_URL`, then `npm run migrate`. Same commands, shared data, no per-seat fee.
+## What you own
 
-## The commands
+Services, changes, reviews, deployments, release links, improvement actions, imported metric summaries and a before-and-after activity log. The demo contains an oversized waiting review, a stale review after a revision, a merged change only deployed to staging, an unresolved production failure, overdue actions and a service without records.
 
-<!-- TODO(author): a table of the slash commands in .claude/commands and what each one does. -->
+This base works offline. It does not host code, deploy software, collect events automatically or reproduce every LinearB feature. Enterprise DNA scopes those connections and any web front end around your requirements. [Why no front end](docs/why-no-front-end.md).
 
-| Command | What it does |
-|---|---|
-| `/...` | ... |
+## Weekly work
 
-## Instead of LinearB
+Start with /weekly-review. Review /review-queue, /release-queue and /failures, then assign /add-action. Review /dora at service level and /metric-trend for imported vendor summaries. Check /compliance for missing policy evidence. /draft-weekly and /draft-followup write local drafts and never send.
 
-<!-- TODO(author): how to bring data across from LinearB; link docs/replace-linearb.md -->
+The build ships 35 CLI commands and 37 slash-command recipes. Every CLI command accepts --json. Flags use --name=value, and writes require --actor. Exact codes, partial IDs and case-insensitive names work. Ambiguous matches list candidates and fail. Unknown flags fail, including misspelled dry-run flags. Run npm run delivery -- help for the complete command list.
 
-## Architecture
+A merge needs a current independent review with evidence. An amendment increments the revision and invalidates earlier reviews. Deployment links must belong to the same service and follow merge time. Recovery must follow a recorded failure. Closing an action requires evidence. Actor labels are assertions, not authenticated identities or tamper-proof signatures.
 
+## Ten questions this build answers today
+
+These are tested questions, not claims that LinearB cannot report on delivery. The additional policy and action records belong to your version.
+
+1. Which changes are waiting for a review of their current revision? review-queue.
+2. Which merged changes have still not reached production? release-queue.
+3. Which production failures remain unresolved? failures.
+4. Which improvement actions are overdue and who owns them? actions.
+5. Which services have no delivery records? coverage.
+6. How much change lead time and failed-release recovery time did each service record? dora.
+7. Which changes were merged without independent review evidence? quality.
+8. What share of recorded changes is still unclassified? investment.
+9. Which imported metric changed between periods without mixing units or teams? metric-trend.
+10. Which services need a purpose, retention or access review? compliance.
+
+## Import LinearB in one command
+
+Export the required dashboard CSV, record its filters and map its date, metric, unit and aggregation labels. The included fixture is illustrative, using the vendor's documented layout:
+
+```bash
+npm run delivery -- import linearb --file=fixtures/linearb-dashboard.csv --map=fixtures/linearb-map.json --scope=demo-portal --actor=Demo --dry-run --json
 ```
-engineering-delivery-for-claude-code/
-  CLAUDE.md                 how the operator wants this run (routing table + house rules)
-  AGENTS.md                 the same, for Codex / OpenCode / Cursor / Gemini CLI
-  .claude/commands/         the slash commands
-  scripts/                  the CLI the commands drive
-  scripts/lib/db.mjs        one adapter: DATABASE_URL (pg) or embedded PGlite
-  supabase/migrations/      plain SQL schema
-  supabase/seed.sql         demo data
-  docs/                     the thesis and the migration guide
-```
 
-## Built for coding agents
+Remove --dry-run to load it. Import is atomic, repeatable and preserves missing values as unknown. Changed historical values need --update. It retains raw rows and source hashes. Summaries do not become invented change or deployment events. [Full export, mapping and reconciliation guide](docs/replace-linearb.md).
 
-The database, CLI and command recipes work with Claude Code, Codex, OpenCode or Cursor. Ask your coding agent for a new command and have it implement and test the change against the same records.
+npm run delivery -- export writes a private JSON archive of every domain and audit record into exports/. It is a portable archive, not a substitute for tested database backups. Keep imports/, exports/, .data/, generated views, documents and drafts out of Git.
 
-## Contributing
+## Measures and documents
 
-Issues and pull requests are welcome. Keep the shape: plain SQL, a small CLI, a slash command per recurring job, no front end.
+The dora command reports the five current delivery measures per service, with sample counts, unresolved failures and missing links visible. Zero denominators stay unknown. [Exact definitions and time windows](docs/metrics.md).
 
-## Want it installed and run for you?
+Change brand.json to use your business name, colours and local logo. npm run view produces week, quality and coverage snapshots. npm run docs produces service delivery reviews, failed-release recovery records and improvement registers. Local SQL views power the reports. No server or application front end is required.
 
-Enterprise DNA installs Engineering Delivery for Claude Code for your business, migrates your LinearB data, connects it to the rest of your tools, and runs it for you as part of **Omni**, our managed Command Center. One setup fee, then a monthly retainer.
+## Your first hour: ten things to ask for
 
-- Book a call: [enterprisedna.co/omni/book](https://enterprisedna.co/omni/book/?offer=replace-software&utm_source=github&utm_medium=readme&utm_campaign=linearb)
-- Read more: [enterprisedna.co/omni/instead-of/linearb](https://enterprisedna.co/omni/instead-of/linearb?utm_source=github&utm_medium=readme&utm_campaign=linearb)
+1. Put our business name and logo on the delivery review.
+2. Import a dashboard export for one team and compare the figures.
+3. Add our service owners.
+4. Record the actual release and recovery times for a failed deployment.
+5. Show changes waiting for a fresh review.
+6. Add our release ticket reference to a deployment.
+7. Rename our change categories and migrate the old values.
+8. Add our own service review window.
+9. Draft the week's follow-up actions.
+10. Record our data purpose and retention-review dates.
 
-## License
+/customise writes and applies a migration, updates affected commands and verifies the result. /new-view adds a read-only report from the records.
 
-MIT. Copyright (c) 2026 Enterprise DNA.
+## Verification and operating boundary
+
+npm test runs against an isolated temporary PGlite database, applies migrations twice, seeds twice, exercises every CLI command, and tests time windows, metric denominators, review gates, source mapping, import rollback, duplicate handling, exports, drafts and HTML escaping. CI runs Node 20/22 on Linux and Windows and a disposable PostgreSQL database. Check the actual CI result before claiming a platform passed.
+
+Public privileges are revoked and domain tables have row-level security without public policies. The trusted database owner can access all records. Configure real identity, permissions, backups and a retention process before sharing. [Record checks and cited sources](docs/compliance.md). Hosting and coding-agent usage have their own costs.
+
+Enterprise DNA builds your version, brings across agreed LinearB records and runs it through Omni by Enterprise DNA for one setup fee and then a retainer. [Book 30 minutes with Sam](https://enterprisedna.co/omni/book/?offer=replace-software&utm_source=github&utm_medium=readme&utm_campaign=linearb).
+
+MIT. Not affiliated with LinearB or Anthropic.

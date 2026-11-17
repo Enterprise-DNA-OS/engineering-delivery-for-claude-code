@@ -1,24 +1,9 @@
-# Why there is no front end
+# Why the base has no application front end
 
-LinearB is a database with a subscription. The tables underneath it are ordinary: a few entities, a few relationships, a handful of workflows you repeat every week. What you pay for is the layer on top that lets people who do not write SQL get at those tables. Screens, filters, dashboards, forms.
+The useful work is reviewing a backlog, finding missing release evidence, checking whether a failed deployment recovered and turning a weekly discussion into named actions. Commands can query the same records and produce the documents directly.
 
-That layer used to be the whole product, because talking to a database was hard. It is not hard any more. Open this folder in Claude Code, describe what you want, and it writes the query, runs it, and explains the answer. Ask a question the dashboard never had a chart for and you still get an answer.
+npm run view generates three read-only HTML snapshots. npm run docs generates a service delivery review, failed-release recovery records and an improvement register. These are local files, not an application or a shared live dashboard. Regenerate them when the records change. Set the business name, colours and local logo path in brand.json.
 
-## What you gain
+A screen gives a team live filters, shared navigation, interactive charts and convenient mobile access. The base does not supply those, code hosting, code review, automatic data collection or workflow automation. It records review evidence and release history. It never executes a deployment or changes source code. /new-view adds another read-only report, while /customise changes the data and rules.
 
-- **Better answers.** A dashboard shows what the vendor decided to chart. Here you ask your own question, in your own words, and get it answered against your own data.
-- **No seats.** Everyone who needs to look can look. The bill does not grow with headcount.
-- **Your data in your Postgres.** Plain tables. Back them up, query them from anything, leave any time. There is no export step because there is nothing to leave.
-- **A process that matches you.** When your way of working changes, you add a command. You do not wait for a feature request to clear.
-
-## What you give up
-
-- **A visual board.** Stages are a table you ask about, not cards you drag.
-- **A phone app.** It runs where Claude Code runs.
-- **A vendor help desk.** This is open source. Enterprise DNA supports the installed version for businesses that want someone to call.
-
-## Who this fits
-
-Small teams who already use Claude Code, or who would rather learn to ask than learn another interface. If your team needs a screen to look at all day, keep LinearB. If you need the answers more than the screens, this is cheaper, faster and yours.
-
-Installed and run for you: https://enterprisedna.co/omni/instead-of/linearb
+Enterprise DNA can build a web front end and the required source connections around the database you own. Agree those requirements before switching the team away from its existing service. The base works with offline exports and locally recorded facts without OAuth or another platform account.

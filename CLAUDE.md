@@ -1,43 +1,64 @@
-# Engineering Delivery for Claude Code: operating instructions
+# Engineering Delivery for Claude Code
 
-This file is the brain. Claude Code reads it at the start of every session. It says who this is for, how work gets done, and the one right way to do each recurring job.
+This is a delivery review database for an engineering lead or owner. The initial business is Harbour Software, a fictional demo. Ask the operator for their business context when they customise it. Use real records, not memory.
 
-## Who this is for
+## Work
 
-- **Business:** [YOUR BUSINESS]
-- **Operator:** [YOUR NAME], [your role]
-- **What matters most:** [the one or two outcomes you care about]
+Read before writing. Use npm run delivery -- help to inspect commands. Names can be partial and case insensitive, but ambiguity must be resolved before any write. Actual writes require --actor and actual timestamps. Names are labels, not authenticated identity. The database is the source of truth.
 
-Fill this in once. A worker with context knows. A worker without it guesses.
+## One route for each job
 
-## How to work
-
-1. **Take a brief, not a script.** The operator describes the outcome. You run the right command and present the answer.
-2. **Read before you write.** Before drafting anything about a record, read its full history first.
-3. **Plain language.** Short sentences. No filler. Numbers in tables.
-4. **Silent success, loud problems.** No play-by-play. Say what broke and what you did about it.
-5. **Stop at the line.** Anything that sends, deletes, or faces a customer waits for a yes in this session.
-
-## Routing table: one right way for each recurring job
-
-| When the operator asks for... | Use this |
+| Ask | Recipe |
 |---|---|
-| <!-- TODO(author): one row per slash command --> | `/...` |
+| services | /services |
+| changes | /changes |
+| review queue | /review-queue |
+| release queue | /release-queue |
+| failures | /failures |
+| actions | /actions |
+| quality | /quality |
+| coverage | /coverage |
+| deployments | /deployments |
+| dora | /dora |
+| investment | /investment |
+| metric history | /metric-history |
+| metric trend | /metric-trend |
+| compliance | /compliance |
+| activity | /activity |
+| show | /show |
+| weekly review | /weekly-review |
+| add service | /add-service |
+| set policy | /set-policy |
+| add change | /add-change |
+| amend change | /amend-change |
+| record review | /record-review |
+| merge change | /merge-change |
+| add deployment | /add-deployment |
+| link change | /link-change |
+| flag failure | /flag-failure |
+| recover deployment | /recover-deployment |
+| add action | /add-action |
+| close action | /close-action |
+| log note | /log-note |
+| import | /import |
+| export | /export |
+| draft weekly | /draft-weekly |
+| draft followup | /draft-followup |
+| Change fields or rules | /customise |
+| Add a read-only report | /new-view |
 
-If an ask fits nothing here, run the CLI directly (`npm run <cli> -- --help`) and then propose a new command for it.
+Recipes live in .claude/commands/. All coding agents use the same files.
 
-## Hard rules
+## Boundaries
 
-- Never send email or messages from here. Draft to `drafts/`, a person sends.
-- Never delete records without an explicit yes in this session. Prefer marking closed or archived.
-- Never invent a record. If a name is ambiguous, list the candidates and ask.
-- The database is the source of truth. If the answer is not in it, say so.
+Never send email or messages. Draft into drafts/. Never deploy software, merge source code, publish or delete records through this review system. A merge or deployment command only records an event that happened. Do not invent reviews, source events or deployment results. Keep source exports, reports and credentials out of Git. Never seed a production database.
 
-## Where things live
+Before changing definitions read docs/metrics.md. Imported vendor summaries and local calculations are different sources. Preserve units, date windows, missing values and sample counts. Do not turn counts into employee productivity scores.
 
-- `scripts/` the CLI. `scripts/lib/db.mjs` picks `DATABASE_URL` (Postgres, Supabase) or the embedded database in `.data/`.
-- `supabase/migrations/` the schema, plain SQL. `npm run migrate` applies it.
-- `.claude/commands/` the slash commands. Add one every time the same ask comes twice.
-- `docs/` the thesis and the guide for moving off LinearB.
+Before changing policy checks read docs/compliance.md. Date prompts are local controls, not statutory deadlines. Public access is denied by default. Set up actual authentication and access controls before sharing.
 
-Built by Enterprise DNA. Installed and run for you as part of Omni: https://enterprisedna.co/omni/instead-of/linearb
+## Files
+
+scripts/delivery.mjs is the one domain CLI. scripts/lib/db.mjs selects PostgreSQL via DATABASE_URL or PGlite under DATA_DIR. supabase/migrations/ contains numbered migrations. views.json and documents.json define read-only HTML output. brand.json brands it. docs/replace-linearb.md is the import route. npm test uses an isolated temporary database.
+
+Omni by Enterprise DNA installs, customises and runs the system: https://enterprisedna.co/omni/instead-of/linearb

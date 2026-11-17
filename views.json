@@ -1,13 +1,49 @@
 [
   {
     "name": "week",
-    "title": "This week",
-    "subtitle": "Engineering Delivery for Claude Code: what needs attention, rendered by npm run view",
+    "title": "The delivery week",
+    "subtitle": "Review, release and recovery queues. Fictional demo until replaced with your records.",
     "sections": [
       {
-        "title": "Needs attention",
-        "note": "TODO(author): point this at the industry's attention view (overdue, stuck, quiet).",
-        "sql": "select 'replace me' as item, 'TODO(author)' as why"
+        "title": "Waiting for review",
+        "sql": "SELECT * FROM review_queue ORDER BY waiting_hours DESC"
+      },
+      {
+        "title": "Merged but not in production",
+        "sql": "SELECT * FROM release_queue ORDER BY waiting_hours DESC"
+      },
+      {
+        "title": "Unresolved production failures",
+        "sql": "SELECT * FROM failure_queue ORDER BY failed_at"
+      }
+    ]
+  },
+  {
+    "name": "quality",
+    "title": "Change quality and follow-up",
+    "sections": [
+      {
+        "title": "Review coverage and batch size",
+        "sql": "SELECT * FROM delivery_quality ORDER BY changed_lines DESC"
+      },
+      {
+        "title": "Actions",
+        "sql": "SELECT * FROM action_queue ORDER BY due_on"
+      }
+    ]
+  },
+  {
+    "name": "coverage",
+    "title": "Service and source coverage",
+    "sections": [
+      {
+        "title": "Services including those without data",
+        "sql": "SELECT * FROM service_coverage ORDER BY code"
+      },
+      {
+        "title": "Imported summaries",
+        "note": "Vendor summaries retain their units and aggregation. They do not create underlying change or deployment records.",
+        "sql": "SELECT scope,period_start,period_end,metric,unit,aggregation,value FROM metric_snapshots ORDER BY scope,metric,period_start"
       }
     ]
   }
