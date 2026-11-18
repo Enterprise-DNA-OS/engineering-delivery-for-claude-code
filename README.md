@@ -6,7 +6,7 @@ See what is waiting for review, what has merged but has not reached production, 
 |---|---|---|
 | Free under MIT. Install and explore the fictional demo. | Your delivery rules, LinearB summaries, source connections and reports. One setup fee, then a retainer. | Installed and operated through Omni by Enterprise DNA. One setup fee, then a retainer. |
 
-[Get your version built](https://enterprisedna.co/omni/book/?offer=replace-software&utm_source=github&utm_medium=readme&utm_campaign=linearb) · [Instead of LinearB](https://enterprisedna.co/omni/instead-of/linearb)
+[Get your version built](https://enterprisedna.co/omni/book/?offer=replace-software&utm_source=github&utm_medium=readme&utm_campaign=linearb) · [Instead of LinearB](https://enterprisedna.co/omni/instead-of/linearb?utm_source=github&utm_medium=readme&utm_campaign=linearb)
 
 ## Try it
 
